@@ -48,7 +48,7 @@ public class MovieList
             {
                 case 1: userMovies.add(createMovie());
                         break;
-                case 2: /* Complete Remove Movie*/
+                case 2: removeMovie(userMovies);
                         break;
                 case 3: movieSearch(userMovies);
                         break;
@@ -97,20 +97,29 @@ public class MovieList
         Scanner y = new Scanner(System.in);
         while (year == 0)
         {
-        String yearString = y.nextLine();
-        try {
-            year = Integer.parseInt(yearString);
-        }
-        catch(NumberFormatException e){
-            System.out.println("Not a valid value for year! Please enter movie year.");
-        }
+            String yearString = y.nextLine();
+            try {
+                year = Integer.parseInt(yearString);
+            }
+            catch(NumberFormatException e){
+                System.out.println("Not a valid value for year! Please enter movie year.");
+            }
         //int year = y.nextInt();
         }
         
         System.out.println("What is the runtime of the movie you wish to add?");
         Scanner rt = new Scanner(System.in);
-        int runtime = rt.nextInt();
-        
+        int runtime = 0;
+        while ( runtime == 0)
+        {
+            String runtimeString = rt.nextLine();
+            try {
+                runtime = Integer.parseInt(runtimeString);
+            }
+            catch (NumberFormatException e){
+                System.out.println("Not a valid value for runtime! Please enter movie runtime.");
+            }
+        }
         movies movie = new movies(name, rating, year, runtime);
         return movie;
     }
@@ -135,7 +144,27 @@ public class MovieList
     
     public static void printMovies(ArrayList<movies> moviesToPrint)
     {
+        int movieNum = 0;
         for ( movies m : moviesToPrint )
+        {
+            movieNum++;
+            System.out.println("Movie #" + movieNum);
             System.out.println(m.toString());
+        }
+    }
+    
+    public static void removeMovie(ArrayList<movies> moviesToRemove)
+    {
+        System.out.println("What is the name of the movie you want to remove?");
+        Scanner toRemove = new Scanner(System.in);
+        String removeName = toRemove.nextLine();
+        
+        for ( movies m : moviesToRemove )
+        {
+            if (m.getName().equalsIgnoreCase(removeName))
+                moviesToRemove.remove(m);
+            else 
+                System.out.println("This movie is not in the list.");
+        }
     }
 }
