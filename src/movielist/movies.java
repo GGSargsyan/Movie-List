@@ -1,23 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package movielist;
-//import java.util.Iterator;
 
 /**
- *
+ * This class creates the movies object. Each movies object will contain four
+ * data members: String movieName, String movieRating, int movieYear, and int
+ * movieRuntime.
  * @author Grigor Sargsyan
+ * Date: 2/19/2018
  */
 public class movies 
 {
+    // Data members of movies
     private String movieName;
-    private String movieRating;
-    private int movieYear;
-    private int movieRuntime;
+    final private String movieRating;
+    final private int movieYear;
+    final private int movieRuntime;
     
-    //Iterator<movies> itr = userMovies.iterator();
+    /**
+     * This is the default constructor.
+     */
     public movies()
     {
         this.movieName = "";
@@ -26,6 +28,14 @@ public class movies
         this.movieRuntime = 0;
     }
     
+    /**
+     * This constructor takes in all four data members as arguments and creates 
+     * a complete movies object to be used in MovieList.java
+     * @param movieName
+     * @param movieRating
+     * @param movieYear
+     * @param movieRuntime
+     */
     public movies(String movieName, String movieRating, int movieYear, int movieRuntime)
     {
         this.movieName = movieName;
@@ -35,19 +45,27 @@ public class movies
     }
     
     /**
-     *
-     * @return
+     * Accessor used to retrieve the name of a movies object
+     * @return String movieName
      */
     public String getName()
     {
         return this.movieName;
     }
     
+    /**
+     * Mutator used to set a movies object's name.
+     * @param name
+     */
     public void setName(String name)
     {
         movieName = name;
     }
     
+    /**
+     * Returns a print statement of the object's contents.
+     * @return String
+     */
     @Override
     public String toString()
     {
