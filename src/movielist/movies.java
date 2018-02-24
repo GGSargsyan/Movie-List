@@ -63,6 +63,15 @@ public class movies
     }
     
     /**
+     * Accessor used to retrieve the name of a movies object
+     * @return String movieName
+     */
+    public int getYear()
+    {
+        return this.movieYear;
+    }
+    
+    /**
      * Returns a print statement of the object's contents.
      * @return String
      */

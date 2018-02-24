@@ -2,6 +2,7 @@
 package movielist;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.util.Pair;
 
 /**
  * This class contains the main method and uses the movies objects to create a
@@ -26,6 +27,8 @@ public class MovieList
         movies newMovie;
         isMovie = addMovie();
         ArrayList<movies> userMovies = new ArrayList<>();
+        //ArrayList <Pair <String,Integer> > userMovies = 
+                //new ArrayList <Pair <String, Integer> > ();
         
         // while loop used by user to add all inital movies to movies list.
         while ( isMovie )
@@ -49,7 +52,7 @@ public class MovieList
         {
             System.out.println("What would you like to do with your movie list?");
             System.out.println("1: Add Movie\n2: Remove Movie\n3: Find Movie" +
-                               "\n4: Print Movies\n5: Exit");
+                               "\n4: Print All Movies\n5: Exit");
             // Collects the users choice
             String choiceString = choiceValue.nextLine();
             try 
@@ -134,8 +137,12 @@ public class MovieList
             // checks if year entered is positive. If not resets year to zero.
             try {
                 year = Integer.parseInt(yearString);
-                if (year < 0)
+                if (year <= 0)
+                {
+                    System.out.println("Not a valid value for year! "
+                        + "Please enter movie year.");
                     year = 0;
+                }
             }
             catch(NumberFormatException e){
                 System.out.println("Not a valid value for year! "
@@ -154,8 +161,12 @@ public class MovieList
             // checks if year entered is positive. If not resets runtime to zero.
             try {
                 runtime = Integer.parseInt(runtimeString);
-                if (runtime < 0)
+                if (runtime <= 0)
+                {
+                    System.out.println("Not a valid value for runtime! "
+                        + "Please enter movie runtime.");
                     runtime = 0;
+                }
             }
             catch (NumberFormatException e){
                 System.out.println("Not a valid value for runtime! "
@@ -177,17 +188,47 @@ public class MovieList
         System.out.println("What is the name of the movie you are looking for?");
         Scanner search = new Scanner(System.in);
         String title = search.nextLine();
+        System.out.println("What is the year of the movie you are looking for?");
+        int year = -1;
+        String yearString = "";
+        while ( year == -1)
+        {
+            yearString = search.nextLine();
+            // checks if year entered is positive. If not resets runtime to -1.
+            try {
+                year = Integer.parseInt(yearString);
+                if (year < 0)
+                {
+                    System.out.println("Not a valid value for year! "
+                        + "Please enter movie year.");
+                    year = -1;
+                }
+            }
+            catch (NumberFormatException e){
+                System.out.println("Not a valid value for year! "
+                        + "Please enter movie year.");
+            }
+        }
         
         // loops through the movie list until a movie with the same name is found.
+        boolean found = false;
         for( movies m : moviesToSearch)
         {
             if (m.getName().equalsIgnoreCase(title))
             {
-                System.out.println("Your movie is number " + 
-                (moviesToSearch.indexOf(m)+1) + " in the list.");
+                if ( m.getYear() == year )
+                {
+                    System.out.println("Your movie is number " + 
+                        (moviesToSearch.indexOf(m)+1) + " in the list.");
+                    found = true;
+                }
+                else 
+                    System.out.println("This movie is not in the list.");
             }
             else 
                 System.out.println("This movie is not in the list.");
+            if (found)
+                break;
         }
     }
     
@@ -216,13 +257,43 @@ public class MovieList
         System.out.println("What is the name of the movie you want to remove?");
         Scanner toRemove = new Scanner(System.in);
         String removeName = toRemove.nextLine();
+        System.out.println("What is the year of the movie you want to remove?");
+        int year = -1;
+        String yearString = "";
+        while ( year == -1)
+        {
+            yearString = toRemove.nextLine();
+            // checks if year entered is positive. If not resets runtime to -1.
+            try {
+                year = Integer.parseInt(yearString);
+                if (year < 0)
+                {
+                    System.out.println("Not a valid value for year! "
+                        + "Please enter movie year.");
+                    year = -1;
+                }
+            }
+            catch (NumberFormatException e){
+                System.out.println("Not a valid value for year! "
+                        + "Please enter movie year.");
+            }
+        }
         
+        boolean removed = false;
         for ( movies m : moviesToRemove )
         {
             if (m.getName().equalsIgnoreCase(removeName))
-                moviesToRemove.remove(m);
+                if (m.getYear() == year)
+                {
+                    moviesToRemove.remove(m);
+                    removed = true;
+                }
+                else 
+                    System.out.println("This movie is not in the list.");
             else 
                 System.out.println("This movie is not in the list.");
+            if (removed)
+                break;
         }
     }
 }
