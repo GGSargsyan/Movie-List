@@ -1,5 +1,9 @@
 
 package movielist;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.util.Pair;
@@ -233,18 +237,32 @@ public class MovieList
     }
     
     /**
-     * Returns a toString of all the movies in the list and their positions
+     * Returns an output file in toString format of all the movies in the list 
+     * and their positions
      * @param moviesToPrint
      */
     public static void printMovies(ArrayList<movies> moviesToPrint)
     {
-        int movieNum = 0;
-        for ( movies m : moviesToPrint )
-        {
-            movieNum++;
-            System.out.println("Movie #" + movieNum);
-            System.out.println(m.toString());
+        Scanner input = new Scanner(System.in);
+        System.out.print("Name of output file:");
+        String outputFileName = input.next();
+        
+        try {
+            PrintWriter writer = new PrintWriter(outputFileName);
+            int movieNum = 0;
+            for ( movies m : moviesToPrint )
+            {
+                movieNum++;
+                writer.println("Movie #" + movieNum);
+                writer.println(m.toString());
+            }
+            if (movieNum == 0)
+                writer.println("Your movie list is empty!");
+            
+            writer.close();
         }
+        catch (IOException ex) {}
+    
     }
     
     /**
@@ -280,6 +298,7 @@ public class MovieList
         }
         
         boolean removed = false;
+        // Loops through array to find the movie
         for ( movies m : moviesToRemove )
         {
             if (m.getName().equalsIgnoreCase(removeName))
