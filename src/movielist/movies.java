@@ -81,7 +81,7 @@ public class movies
         return "The movie name is: " + movieName +
                 "\nmovie rating is: " + movieRating +
                 "\nmovie year is: " + movieYear +
-                "\nmovie runtime is: " + movieRuntime;
+                "\nmovie runtime is: " + movieRuntime + " minutes";
     }
     
 }

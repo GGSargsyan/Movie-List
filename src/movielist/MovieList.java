@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.util.Pair;
+        // test
 
 /**
  * This class contains the main method and uses the movies objects to create a
@@ -77,7 +78,7 @@ public class MovieList
                 // Searches list for a user chosen movie       
                 case 3: movieSearch(userMovies);
                         break;
-                // Prints all movies in list
+                // Prints all movies in list to output file
                 case 4: printMovies(userMovies);
                         break;
                 // Exists switch case and program
